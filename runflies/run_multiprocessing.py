@@ -22,6 +22,7 @@ def gather_all_pixels():
     imarray=im.read()  
     ci = np.array(imarray) 
     meta = im.meta.copy()
+    #print(meta)
 
     relevant_pixels = []; index=[] 
     i=0
@@ -32,8 +33,11 @@ def gather_all_pixels():
             continue
         relevant_pixels.append((col, row))
         index.append(i-1)
+        #print(index)
               
-    return relevant_pixels,index,index1,index2,index3,index4, index5,index6,index7, meta, im
+    #return relevant_pixels,index,index1,index2,index3,index4, index5,index6,index7, meta, im
+    return relevant_pixels,index, meta, im
+    #,index1,index2,index3,index4, index5,index6,index7
 
 def run_one_pixel(inputs):
     """Runs for one pixel with given inputs.
@@ -55,7 +59,7 @@ def run_one_pixel(inputs):
 def optimizer_with_mp():
     """Runs the optimization using multiprocessing.Pool
     """
-    years = [2020, ]
+    years = [2024, ]
     pixels_for_DA, index,meta, im = gather_all_pixels()
     relevant_years_pixels = list(product(years, pixels_for_DA))
     p = Pool(30)
@@ -84,7 +88,7 @@ def optimizer_with_mp():
         l1.append(v1)        
 
     leng=im.shape[0]*im.shape[1]
-    y_pred = np.full(leng, np.NaN)
+    y_pred = np.full(leng, np.nan)
     
     results_y = np.array(l1)
        

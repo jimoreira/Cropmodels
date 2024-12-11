@@ -7,7 +7,9 @@ this_dir = os.getcwd()
 up_dir = os.path.dirname(this_dir)
 if not up_dir in sys.path:
     sys.path.append(up_dir)
-    
+#print(up_dir)
+
+
 import datetime as dt
 import yaml
 import pandas as pd

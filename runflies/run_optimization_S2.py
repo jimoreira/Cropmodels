@@ -16,6 +16,8 @@ import nlopt
 
 from pcse.base import ParameterProvider
 from pcse.fileinput import ExcelWeatherDataProvider, PCSEFileReader
+from pcse.input import NASAPowerWeatherDataProvider
+
 import rasterio
 
 from optimizer import ObjectiveFunctionCalculator
@@ -115,7 +117,8 @@ def optimize_one_pixel(year, col, row, silent=False):
     """
 
     # Weather data for Uruguay
-    wdp = ExcelWeatherDataProvider(config.weather_fname)
+    #wdp = ExcelWeatherDataProvider(config.weather_fname)
+    wdp= NASAPowerWeatherDataProvider(longitude=-57.079, latitude=-33.492)
 
     # Model parameters
     cropd = PCSEFileReader(config.crop_fname)
@@ -175,19 +178,19 @@ def optimize_one_pixel(year, col, row, silent=False):
         print("With %i function calls" % objfunc_calculator.n_calls)
 
     # Generate output figures
-#    fig, axes = plt.subplots(figsize=(12, 20), nrows=3, ncols=1)
-#    objfunc_calculator.df_simulations.YIELD.plot(ax=axes[0])
-#    objfunc_calculator.df_simulations.TDM.plot(ax=axes[1])
-#    objfunc_calculator.df_simulations.LAI.plot(ax=axes[2])
-#    objfunc_calculator.df_observations.LAI.plot(ax=axes[2], color='r', marker='o')
-#    fig.autofmt_xdate()
-#    fname_figure = os.path.join(config.this_dir, "output", f"optimization_results_{year}_{col}_{row}.png")
-#    fig.savefig(fname_figure)
-#    plt.close("all")
+    fig, axes = plt.subplots(figsize=(12, 20), nrows=3, ncols=1)
+    objfunc_calculator.df_simulations.YIELD.plot(ax=axes[0])
+    objfunc_calculator.df_simulations.TDM.plot(ax=axes[1])
+    objfunc_calculator.df_simulations.LAI.plot(ax=axes[2])
+    objfunc_calculator.df_observations.LAI.plot(ax=axes[2], color='r', marker='o')
+    fig.autofmt_xdate()
+    fname_figure = os.path.join(config.this_dir, "output", f"optimization_results_{year}_{col}_{row}.png")
+    fig.savefig(fname_figure)
+    plt.close("all")
 
 
     return harvest_yield ,x[0],x[1],x[2], x[3], LAI_max,CWDv,CWDr,TDMR1,TDMR5,LAIR1, LAIR5,CRainv,CRainr, CVPDv,CVPDr,CTv,CTr,TWCR1,TWCR5,CRADv,CRADr
 
 if __name__ == "__main__":
-    optimize_one_pixel(year=2020, col=72, row=4)
+    optimize_one_pixel(year=2023, col=2, row=2)
 
