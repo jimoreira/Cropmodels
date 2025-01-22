@@ -58,8 +58,8 @@ def run_one_pixel(inputs):
 
 def optimizer_with_mp():
     """Runs the optimization using multiprocessing.Pool
-    """
-    years = [2024, ]
+    """ 
+    years = [2025, ]
     pixels_for_DA, index,meta, im = gather_all_pixels()
     relevant_years_pixels = list(product(years, pixels_for_DA))
     p = Pool(30)

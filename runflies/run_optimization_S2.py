@@ -118,7 +118,7 @@ def optimize_one_pixel(year, col, row, silent=False):
 
     # Weather data for Uruguay
     #wdp = ExcelWeatherDataProvider(config.weather_fname)
-    wdp= NASAPowerWeatherDataProvider(longitude=-57.079, latitude=-33.492)
+    wdp= NASAPowerWeatherDataProvider(longitude=-57.132, latitude=-33.466)
 
     # Model parameters
     cropd = PCSEFileReader(config.crop_fname)
@@ -192,5 +192,6 @@ def optimize_one_pixel(year, col, row, silent=False):
     return harvest_yield ,x[0],x[1],x[2], x[3], LAI_max,CWDv,CWDr,TDMR1,TDMR5,LAIR1, LAIR5,CRainv,CRainr, CVPDv,CVPDr,CTv,CTr,TWCR1,TWCR5,CRADv,CRADr
 
 if __name__ == "__main__":
-    optimize_one_pixel(year=2023, col=2, row=2)
+    optimize_one_pixel(year=2025, col=1, row=0)
 
+#
